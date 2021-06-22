@@ -3,7 +3,7 @@ const router = express.Router();
 const Author = require("../models/author");
 const Book = require("../models/book");
 
-//All Authors Route
+//TODO: All Authors Route
 router.get("/", async (req, res) => {
   let searchOptions = {}
   if(req.query.name != null && req.query.name !== ''){
@@ -21,12 +21,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-//new author routes
+//TODO: new author routes
 router.get("/new", (req, res) => {
   res.render("authors/new", { author: new Author() });
 });
 
-//create author route
+//TODO: create author route
 router.post("/", async (req, res) => {
   const author = new Author({
     name: req.body.name,
@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//show all books written by author
+//TODO: show all books written by author
 router.get('/:id', async (req, res) => {
   try{
     const author = await Author.findById(req.params.id) //finding author by his id
@@ -54,7 +54,7 @@ router.get('/:id', async (req, res) => {
       booksByAuthor: books
     })
   } catch(err){
-    console.log(err)
+    //console.log(err)
     res.redirect('/')
   }
 })
@@ -68,7 +68,7 @@ router.get('/:id/edit', async (req, res) => {
   }
 })
 
-//update the author
+//TODO: update the author
 router.put('/:id', async (req, res) => {
   let author
   let locals = { errorMessage: `Error updating author` };
@@ -90,7 +90,7 @@ router.put('/:id', async (req, res) => {
   }
 })
 
-//Delete the author
+//TODO: Delete the author
 router.delete('/:id',async (req, res) => {
   let author
   let locals = { errorMessage: `Error deleting author` };
