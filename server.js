@@ -7,8 +7,8 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
-const bodyParser = require("body-parser");
-
+// const bodyParser = require("body-parser");
+const methodOverride = require('method-override')
 const indexRouter = require("./routes/index");
 const authorRouter = require("./routes/authors");
 const bookRouter = require("./routes/books");
@@ -19,8 +19,10 @@ app.set("view engine", "ejs"); //setting view engine
 app.set("views", __dirname + "/views"); //from where views are coming
 app.set("layout", "layouts/layout");
 app.use(expressLayouts);
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
+app.use(methodOverride('_method'));
+app.use(express.static("public"));  //setting static folder
+app.use(express.json()); //Body parser middleware
+app.use(express.urlencoded({ limit: "10mb", extended: false })); //to handle url encoded data
 
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DATABASE_URL, {
