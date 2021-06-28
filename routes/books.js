@@ -55,13 +55,14 @@ router.post("/", async (req, res) => {
     pageCount: req.body.pageCount,
     description: req.body.description
   })
-  saveCover(book, req.body.cover)
-
+  
   try{
+    saveCover(book, req.body.cover)
     const newBook = await book.save()
     res.redirect(`books/${newBook.id}`)
     //res.redirect(`books`)
-  }catch{
+  }catch (err){
+    //console.log(err)
     renderNewPage(res, book, true)
   }
 });
@@ -161,8 +162,8 @@ async function renderFormPage(res, book, form, hasError = false) {
       }
     }
     res.render(`books/${form}`, params)
- }catch(err){
-   console.log(err)
+ }catch{
+   //console.log(err)
    res.redirect('/books')
  }
 }
